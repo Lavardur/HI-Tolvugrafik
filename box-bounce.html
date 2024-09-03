@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://hjalmtyr.github.io/WebGL-forrit/Angel/box-bounce.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script id="vertex-shader" type="x-shader/x-vertex">
+
+uniform vec2 boxPos;
+attribute vec4 vPosition;
+
+void main()
+{
+    vec4 t = vPosition;
+    
+    t.xy += boxPos;
+    
+    gl_Position = t;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+varying vec4 fColor;
+void
+main()
+{
+    gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
+}
+</script>
+
+<script type="text/javascript" src="./box-bounce_files/webgl-utils.js"></script>
+<script type="text/javascript" src="./box-bounce_files/initShaders.js"></script>
+<script type="text/javascript" src="./box-bounce_files/MV.js"></script>
+<script type="text/javascript" src="./box-bounce_files/box-bounce.js"></script>
+
+</head><body>
+<canvas id="gl-canvas" width="512" height="512"></canvas>
+
+
+</body></html>

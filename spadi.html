@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://hjalmtyr.github.io/WebGL-forrit/Angel/spadi.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute vec4 vPosition;
+attribute vec4 vColor;
+
+varying vec4 fColor;
+
+void
+main()
+{
+    gl_Position = vPosition;
+    fColor = vColor;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+varying vec4 fColor;
+void
+main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="./spadi_files/webgl-utils.js"></script>
+<script type="text/javascript" src="./spadi_files/initShaders.js"></script>
+<script type="text/javascript" src="./spadi_files/MV.js"></script>
+<script type="text/javascript" src="./spadi_files/spadi.js"></script>
+
+</head><body>
+<canvas id="gl-canvas" width="1000" height="600">
+
+
+</canvas></body></html>
