@@ -44,6 +44,16 @@ function getRandomHeight(min, max) {
     cubes.push(vertices);
   }
 
+function bounce() {
+    // Láta ferninginn skoppa af veggjunum
+    if (Math.abs(box[0] + dX) > maxX - boxRad) dX = -dX;
+    if (Math.abs(box[1] + dY) > maxY - boxRad) dY = -dY;
+
+    // Uppfæra staðsetningu
+    box[0] += dX;
+    box[1] += dY;
+}
+
 
 window.onload = function init() {
 
@@ -96,14 +106,7 @@ window.onload = function init() {
 
 
 function render() {
-    
-    // Láta ferninginn skoppa af veggjunum
-    if (Math.abs(box[0] + dX) > maxX - boxRad) dX = -dX;
-    if (Math.abs(box[1] + dY) > maxY - boxRad) dY = -dY;
-
-    // Uppfæra staðsetningu
-    box[0] += dX;
-    box[1] += dY;
+    bounce()
     
     gl.clear( gl.COLOR_BUFFER_BIT );
     //
