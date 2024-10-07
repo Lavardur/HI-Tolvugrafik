@@ -1,0 +1,147 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title> Tolvugrafík </title>
+<link rel="icon" type="image/ico" href="tgr1.ico">
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec3 vPosition;
+attribute vec3 vColor;
+varying vec4 color;
+uniform mat4 rotation;
+
+void main()
+{
+    gl_Position = rotation * vec4(vPosition, 1.0);
+    color = vec4(vColor, 1.0);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+varying vec4 color;
+
+void main()
+{
+    gl_FragColor = color;
+}
+</script>
+
+<script type="text/javascript" src="Common/webgl-utils.js"></script>
+<script type="text/javascript" src="Common/initShaders.js"></script>
+<script type="text/javascript" src="Common/MV.js"></script>
+<script type="text/javascript" src="Angel/hhpyramid.js"></script>
+
+</head>
+
+<body>
+
+<table style="width:100%">
+  <tr>
+    <td><img src = "HI_merki.jpg" align=left hspace=20><p></td>
+    <td><center> <h1> TÖL105M Tölvugrafík </h1>
+                 <h2>Haust 2024</h2></center> </td>
+    <td><center> <canvas id="gl-canvas" width="200" height="200"></center></td>
+  </tr>
+</table>
+
+<hr>
+
+
+<h3>WebGL forrit úr TÖL105M Tölvugrafík
+   (í viðbót við <a href="https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SEVENTH_EDITION/CODE/">forrit úr bókinni</a>)</h3>
+   
+<ul>
+  <li> <a href="Angel/triangle.html">triangle.html</a> (og <a href="Angel/triangle.js">triangle.js</a>) - einfaldasta WebGL forritið
+
+  <li> <a href="Angel/pointtest.html">pointtest.html</a> (og <a href="Angel/pointtest.js">pointtest.js</a>) - sýnir teikningu punkta á ýmsa vegu (þarf að breyta forritskóða til að breyta teikniaðferð)
+
+  <li> <a href="Angel/gasket1-lit.html">gasket1-lit.html</a> (og <a href="Angel/gasket1-lit.js">gasket1-lit.js</a>) - setur lit punktanna með <tt>uniform</tt> breytu, helmingur rauður og helmingur blár
+
+  <li> <a href="Angel/rotatingSquare0.html">rotatingSquare0.html</a> (hnitum breytt í JavaScript-forriti) og
+       <a href="Angel/rotatingSquare1.html">rotatingSquare1.html</a> (hnitum breytt í hnútalitara)
+
+  <li> <a href="Angel/rotatingSquare1time.html">rotatingSquare1time.html</a> - sýnidæmi um tímastýringu hreyfimyndar
+
+  <li> <a href="Angel/rotatingSquare1click.html">rotatingSquare1click.html</a> - sýnidæmi um stýringu með músarsmellum
+
+  <li> <a href="Angel/clickpoints.html">clickpoints.html</a> - sýnidæmi um staðsetningu músarsmella
+
+  <li> <a href="Angel/spadi.html">spadi.html</a> - stýra spaða með mús
+
+  <li> <a href="Angel/spadi-orvar.html">spadi-orvar.html</a> - stýra spaða með örvalyklum
+
+  <li> <a href="Angel/box-bounce.html">box-bounce.html</a> - kassi sem skoppar um strigann
+
+  <li> <a href="Angel/waveTriangle.html">waveTriangle.html</a> (og <a href="Angel/waveTriangle.js">waveTriangle.js</a>) - lætur hnútalitara færa hnúta til og búalitara breyta um lit
+
+  <li> <a href="Angel/colorTriangle1.html">colorTriangle1.html</a> (og <a href="Angel/colorTriangle1.js">colorTriangle1.js</a>) - hnit og litur hvers hnútar fléttuð saman í minnissvæði GPU
+
+  <li> <a href="Angel/colorTriangle2.html">colorTriangle2.html</a> (og <a href="Angel/colorTriangle2.js">colorTriangle2.js</a>) - hnit og litur hvers hnútar í sitthvoru minnissvæðinu í GPU
+
+  <li> <a href="Angel/twoTriangles.html">twoTriangles.html</a> (og <a href="Angel/twoTriangles.js">twoTriangles.js</a>) - teiknar tvö minnissvæði (VBO) með sömu liturum
+
+  <li> <a href="Angel/twoTriangles2.html">twoTriangles2.html</a> (og <a href="Angel/twoTriangles2.js">twoTriangles2.js</a>) - teiknar tvo þríhyrninga úr sama minnissvæði (VBO) með litum fyrir hvern hnút (takið eftir að síðasti hnúturinn er blár, svo hægri þríhyrningurinn er blanda af tveimur grænum og einum bláum hnút).
+
+  <li> <a href="Angel/cube-tr.html">cube-tr.html</a> (og <a href="Angel/cube-tr.js">cube-tr.js</a>) - snúningur framkvæmdur á undan hliðrun
+
+  <li> <a href="Angel/cube-rt.html">cube-rt.html</a> (og <a href="Angel/cube-rt.js">cube-rt.js</a>) - hliðrun framkvæmd á undan snúningi
+
+  <li> <a href="Angel/cube-sh.html">cube-sh.html</a> (og <a href="Angel/cube-sh.js">cube-sh.js</a>) - hnútalitari reiknar út og framkvæmir vörpun
+
+  <li> <a href="Angel/cube-js.html">cube-js.html</a> (og <a href="Angel/cube-js.js">cube-js.js</a>) - Javascript reiknar vörpunarfylki, en hnútalitari framkvæmir vörpunina
+
+  <li> <a href="Angel/cube-scale.html">cube-scale.html</a> (og <a href="Angel/cube-scale.js">cube-scale.js</a>) - hægt að kvaðra tening með því að halda niðri Shift-lykli og færa mús
+
+  <li> <a href="Angel/cube-color.html">cube-color.html</a> (og <a href="Angel/cube-color.js">cube-color.js</a>) - hliðir litaðar með blöndu lita hornanna
+
+  <li> <a href="Angel/cube-elem.html">cube-elem.html</a> (og <a href="Angel/cube-elem.js">cube-elem.js</a>) - teningur teiknaður með <tt>gl.drawElements</tt>
+
+  <li> <a href="Angel/letterH.html">letterH.html</a> (og <a href="Angel/letterH.js">letterH.js</a>) - bókstafurinn H í þrívídd
+
+  <li> <a href="Angel/solkerfi.html">solkerfi.html</a> (og <a href="Angel/solkerfi.js">solkerfi.js</a>) - jörð að snúast í kringum sólu
+
+  <li> <a href="Angel/solkerfi-tungl.html">solkerfi-tungl.html</a> (og <a href="Angel/solkerfi-tungl.js">solkerfi-tungl.js</a>) - jörð snýst í kringum sólu og tungl snýst í kringum jörðu
+
+  <li> <a href="Angel/solkerfi-mars.html">solkerfi-mars.html</a> (og <a href="Angel/solkerfi-mars.js">solkerfi-mars.js</a>) - jörð og Mars að snúast í kringum sólu
+
+  <li> <a href="Angel/cube-red.html">cube-red.html</a> (og <a href="Angel/cube-red.js">cube-red.js</a>) - allir hnútarnir hafa sama lit og þá fáum við ekki þrívíddaráhrif
+
+  <li> <a href="Angel/viewpoints.html">viewpoints.html</a> (og <a href="Angel/viewpoints.js">viewpoints.js</a>) - sýnidæmi með ýmsum útgáfum á <tt>lookAt</tt>-fallinu
+
+  <li> <a href="Angel/cube-ortho.html">cube-orth.html</a> (og <a href="Angel/cube-ortho.js">cube-ortho.js</a>) - teningur með stillanlegu hornréttu ofanvarpi
+
+  <li> <a href="Angel/cube-persp.html">cube-persp.html</a> (og <a href="Angel/cube-persp.js">cube-persp.js</a>) - teningur með stillanlegu fjarvíddarofanvarpi
+
+  <li> <a href="Angel/robotArmHH.html">robotArmHH.html</a> (og <a href="Angel/robotArmHH.js">robotArmHH.js</a>) - vélmennaarmur sem hægt er að snúa
+
+  <li> <a href="Angel/figureHH.html">figureHH.html</a> (og <a href="Angel/figureHH.js">figureHH.js</a>) - mannvera sem hægt er að hreyfa og snúa
+
+  <li> <a href="Angel/figureHH-col.html">figureHH-col.html</a> (og <a href="Angel/figureHH-col.js">figureHH-col.js</a>) - og nú með litríkari teningum og skemmtilegri upphafsstöðu
+
+  <li> <a href="Angel/stereocube.html">stereocube.html</a> (og <a href="Angel/stereocube.js">stereocube.js</a>) - sýniforrit um "víðsjón" 
+         (og ennþá flottara: <a href="Angel/4D-stereocube.html">4D-stereocube.html</a>)
+
+  <li> <a href="Angel/cube-cull.html">cube-cull.html</a> (og <a href="Angel/cube-cull.js">cube-cull.js</a>) - sýniforrit um bakhliðareyðingu
+
+  <li> <a href="Angel/shadowHH.html">shadowHH.html</a> (og <a href="Angel/shadowHH.js">shadowHH.js</a>) - endurbætt sýniforrit um skugga
+  
+  <li> <a href="Angel/cube-NoLight.html">cube-NoLight.html</a> (og <a href="Angel/cube-NoLight.js">cube-NoLight</a>) - allir hnútar tenings í sama lit og engin lýsing
+  
+  <li> <a href="Angel/PhongCube.html">PhongCube.html</a> (og <a href="Angel/PhongCube.js">PhongCube.js</a>) - teningur lýstur með endurskinslíkani Blinn-Phong og Phong litun
+
+
+</ul>
+
+<hr>
+
+<b>Nokkrar <a href="verk1/index.html">áhugaverðar lausnir</a> á Verkefni 1 í námskeiðinu</b>
+
+<hr>
+
+<a href="mailto:hh (hja) hi.is">hh (hja) hi.is</a>, október 2024
+</body>
+
+</html>
