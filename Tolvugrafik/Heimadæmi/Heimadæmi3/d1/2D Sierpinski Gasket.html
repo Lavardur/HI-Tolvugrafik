@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SEVENTH_EDITION/CODE/02/gasket1.html -->
+ <link rel="stylesheet" href="./2D Sierpinski Gasket_files/styles.css">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>2D Sierpinski Gasket</title>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+
+uniform float scale;
+uniform vec2 offset;
+
+void
+main()
+{
+    vec4 offsetPosition = vPosition + vec4(offset.x / scale, offset.y/ scale, 0.0, 0.0); 
+    gl_PointSize = scale / 10.0;
+    gl_Position = vec4(offsetPosition.x * scale, offsetPosition.y * scale, offsetPosition.zw);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+uniform vec4 fColor;
+
+void
+main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="./2D Sierpinski Gasket_files/webgl-utils.js"></script>
+<script type="text/javascript" src="./2D Sierpinski Gasket_files/initShaders.js"></script>
+<script type="text/javascript" src="./2D Sierpinski Gasket_files/MV.js"></script>
+<script type="text/javascript" src="./2D Sierpinski Gasket_files/gasket1.js"></script>
+</head>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+
+</body></html>
