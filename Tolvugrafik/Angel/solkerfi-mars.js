@@ -194,7 +194,7 @@ function render()
 
       mvstack.push(mv);
       mv = mult( mv, scalem( 0.1, 0.1, 0.1 ) );
-      gl.uniformMatrix4fv(mvLoc, false, flatten(mv));
+      gl.uniformMatrix4fv(mvLoc, false, flatten(mv)); 
       gl.drawElements( gl.TRIANGLES, numVertices, gl.UNSIGNED_BYTE, 0 );
       mv = mvstack.pop();
       mv = mvstack.pop();
