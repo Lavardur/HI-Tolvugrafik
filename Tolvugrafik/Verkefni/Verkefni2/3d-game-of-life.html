@@ -8,17 +8,29 @@
 
 <style>
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    position: relative; /* Allows absolutely positioned elements to be relative to the body */
     margin: 0;
-    background-color: rgba(74, 74, 74, 0.603);
+    background-color:rgb(229 255 255);
 }
+
 canvas {
-    border: 1px solid black; 
+    display: block;
+    margin: 0 auto; /* Centers the canvas horizontally */
+    margin-top: 70px; /* Adds space below the title and menu */
 }
+
+#title {
+    z-index: 100;
+    position: absolute;
+    top: 20px;
+    width: 400px;
+    left: 20px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 10px;
+    overflow: auto;
+}
+
 </style>
 
 <script id="vertex-shader" type="x-shader/x-vertex">
@@ -82,9 +94,17 @@ void main()
 <script type="text/javascript" src="../Common/webgl-utils.js"></script>
 <script type="text/javascript" src="../Common/initShaders.js"></script>
 <script type="text/javascript" src="../Common/MV.js"></script>
-<script type="text/javascript" src="./3d-game-of-life.js"></script>
-    
+<script type="text/javascript" src="./3d-game-of-life.js"></script>  
+
 <body>
-<td> <canvas id="gl-canvas" width="600" height="600">
+<div id="title" class="hide">
+    <h1>TÖL105M Tölvugrafík Verkefni 2</h1>
+    <h2> Lífsleikur eftir John Conway í þrívídd</h2>
+    <button id="reset-button">Byrja aftur</button>
+</div>
+
+<!-- You can add more buttons or controls as needed -->
+</div>
+<canvas id="gl-canvas" width="750" height="750"></canvas>
 </body>
 </html>

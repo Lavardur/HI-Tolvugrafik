@@ -146,13 +146,6 @@ window.onload = function init() {
         }
     }  );  
 
-    // Event listener for the Reset button
-    document.getElementById('reset-button').addEventListener('click', function() {
-        grid = createGrid(gridSize); // Reset the grid to its initial state
-        prevGrid = copyGrid(grid);
-        transitionStartTime = createEmptyGrid(gridSize, 0); // Reset transition times
-    });
-
     // Start the rendering loop
     window.requestAnimationFrame(render);
 
@@ -224,8 +217,8 @@ function countNeighbors(x, y, z) {
 }
 
 function updateGrid() {
-    prevGrid = copyGrid(grid);
-    let newGrid = createEmptyGrid(gridSize);
+    prevGrid = copyGrid(grid); // Copy the current grid to keep track of the previous state
+    let newGrid = createEmptyGrid(gridSize); // Create a new grid to store the next generation
 
     for (let x = 0; x < gridSize; x++) {
         for (let y = 0; y < gridSize; y++) {
@@ -233,24 +226,23 @@ function updateGrid() {
                 let neighbors = countNeighbors(x, y, z);
 
                 if (grid[x][y][z] === 1) {
-                    // A live cell stays alive if it has 5-7 neighbors
+                    // A live cell stays alive if it has 5-7 neighbors, otherwise it dies
                     newGrid[x][y][z] = (neighbors >= 5 && neighbors <= 7) ? 1 : 0;
                 } else {
                     // A dead cell becomes alive if it has exactly 6 neighbors
                     newGrid[x][y][z] = (neighbors === 6) ? 1 : 0;
                 }
 
-                // Record transition start time if the state is changing
+                // **Record transition start time if the state is changing**
                 if (newGrid[x][y][z] !== grid[x][y][z]) {
-                    transitionStartTime[x][y][z] = Date.now();
+                    transitionStartTime[x][y][z] = Date.now(); // Record start time
                 }
             }
         }
     }
 
-    grid = newGrid;
+    grid = newGrid; // Update the grid
 }
-
 
 // Cube  ------------------------------------------------- //
 
@@ -303,7 +295,7 @@ function quad(a, b, c, d, n)
 function render(currentTime) {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    // If currentTime is undefined, get the current time
+    // Calculate current time
     if (!currentTime) {
         currentTime = Date.now();
     }
@@ -319,73 +311,71 @@ function render(currentTime) {
     // Base scale factor for the cubes
     let baseScaleFactor = 0.2;
 
-    // Loop through the grid
     for (let x = 0; x < gridSize; x++) {
         for (let y = 0; y < gridSize; y++) {
             for (let z = 0; z < gridSize; z++) {
+
                 let isPrevAlive = prevGrid[x][y][z] === 1;
                 let isNowAlive = grid[x][y][z] === 1;
+
+                // Check if the cell is transitioning
                 let isAnimating = isPrevAlive !== isNowAlive;
 
                 if (isAnimating) {
-                    // Calculate progress of the transition
                     let startTime = transitionStartTime[x][y][z];
                     let timeSinceTransition = currentTime - startTime;
                     let progress = timeSinceTransition / animationDuration;
-                    progress = Math.min(progress, 1);
+                    if (progress > 1) {
+                        progress = 1;
+                    }
 
+                    // Interpolate the scale: grow when becoming alive, shrink when dying
                     let scale = isNowAlive ? progress : 1 - progress;
                     if (scale > 0) {
                         drawCube(x, y, z, viewMatrix, scale * baseScaleFactor);
                     }
                 } else if (isNowAlive) {
+                    // If no animation, draw normally (alive cells)
                     drawCube(x, y, z, viewMatrix, baseScaleFactor);
                 }
-                // Do not draw dead cells that are not animating
-
             }
         }
     }
 
-    // Request the next frame
+    // Request the next frame for animation
     window.requestAnimationFrame(render);
 }
 
-
 function drawCube(x, y, z, globalTransform, scaleFactor) {
+    let modelMatrix = mat4();
+
     let spacing = 0.25; // Adjust spacing as needed
     let centerOffset = (gridSize - 1) / 2;
 
-    // Create scaling matrix
-    let scaleMatrix = scalem(scaleFactor, scaleFactor, scaleFactor);
-
-    // Create translation matrix
-    let translationMatrix = translate(
+    // Translate each cube to its position in the grid
+    modelMatrix = mult(modelMatrix, translate(
         (x - centerOffset) * spacing,
         (y - centerOffset) * spacing,
         (z - centerOffset) * spacing
-    );
+    ));
 
-    // Combine transformations: scaling first, then translation
-    let modelMatrix = mult(translationMatrix, scaleMatrix);
+    // Apply scaling
+    let scale = scalem(scaleFactor, scaleFactor, scaleFactor);
+    modelMatrix = mult(modelMatrix, scale);
 
-    // Combine with global transform (view matrix)
     let mv = mult(globalTransform, modelMatrix);
 
     // Send the model-view matrix to the shaders
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(mv));
 
-    // Compute normal matrix for lighting calculations
-    normalMatrix = [
+    // Compute and send the normal matrix for lighting
+    normalMatrix = mat3(
         vec3(mv[0][0], mv[0][1], mv[0][2]),
         vec3(mv[1][0], mv[1][1], mv[1][2]),
         vec3(mv[2][0], mv[2][1], mv[2][2])
-    ];
+    );
     gl.uniformMatrix3fv(normalMatrixLoc, false, flatten(normalMatrix));
 
     // Draw the cube
     gl.drawArrays(gl.TRIANGLES, 0, NumVertices);
 }
-
-
-
