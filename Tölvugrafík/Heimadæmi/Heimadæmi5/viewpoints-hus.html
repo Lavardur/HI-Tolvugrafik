@@ -1,0 +1,74 @@
+
+<!-- saved from url=(0065)https://hjalmtyr.github.io/WebGL-forrit/Angel/viewpoints-hus.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+body {
+    position: relative; /* Allows absolutely positioned elements to be relative to the body */
+    margin: 0;
+    background-color:rgb(229 255 255);
+}
+
+canvas {
+    display: block;
+    margin: 0 auto; /* Centers the canvas horizontally */
+    margin-top: 70px; /* Adds space below the title and menu */
+}
+
+#title {
+    z-index: 100;
+    position: absolute;
+    top: 20px;
+    width: 400px;
+    left: 20px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 10px;
+    overflow: auto;
+}
+</style>
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute  vec4 vPosition;
+
+uniform mat4 projection;
+uniform mat4 modelview;
+
+void main() 
+{
+    gl_Position = projection * modelview * vPosition;
+} 
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+   
+uniform vec4 fColor;
+
+void main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="viewpoints-hus.js"></script>
+
+</head><body>
+<div id="title">
+    <h4>Sláið á 1, 2, ..., 8 til að skipta um sjónarhorn.</h4>
+    <h4>Örvalyklar hækka og lækka staðsetningu áhorfanda (fer eftir sjónarhorni)</h4>
+    <div id="Viewpoint">1: Fjarlægt sjónarhorn</div>
+    <br>
+    <div id="Height">Viðbótarhæð: 0</div>
+</div>
+<canvas id="gl-canvas" width="800" height="800">
+
+   
+<br>
+
+
+
+</canvas></body></html>
