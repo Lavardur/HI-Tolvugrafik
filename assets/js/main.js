@@ -33,13 +33,6 @@
 	// Forms.
 		var $form = $('form');
 
-		// Validator
-		var frmvalidator  = new Validator("contactform");
-		frmvalidator.addValidation("name","req","Please provide your name");
-		frmvalidator.addValidation("email","req","Please provide your email");
-		frmvalidator.addValidation("email","email",
-		"Please enter a valid email address");
-
 		// Auto-resizing textareas.
 			$form.find('textarea').each(function() {
 
