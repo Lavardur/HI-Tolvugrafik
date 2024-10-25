@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heimadæmi 6 - Haust 2024</title>
+</head>
+<body>
+    <audio controls autoplay loop>
+        <source src="./8-bit.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>    
+    <h1>Tölvugrafík - 19. október 2024</h1>
+    <h2>TÖL105M Tölvugrafík</h2>
+    <h3>Heimadæmi 6</h3>
+    
+    <ol>
+        <li>
+            <strong>[Gamalt prófdæmi]</strong> Tiltekið líkan er táknað með þríhyrningagrind. Því miður snúa
+            nokkrir þríhyrningarnir öfugt, þ.e. hnútar þeirra eru taldir upp í réttsælisröð, en hnútar
+            allra annara þríhyrninga í líkaninu eru taldir upp í rangsælisröð.
+            <ul>
+                <li>
+                    a. Ef líkanið er lýst með endurskinslíkani Phong, hvernig birtast þá þessir "öfugu"
+                    þríhyrningar?
+                </li>
+                <li>
+                    b. Skiptir máli hvort við höfum kveikt á bakhliðareyðingu? Ef svo hvað gerist þá?
+                </li>
+            </ul>
+        </li>
+        <li>
+            Breytið lausn ykkar á dæmi 4 í Heimadæmum 4 (eða notið sýnislausnina billy), þannig að
+            bókaskápurinn hafi einn lit, en að hann sé lýstur með endurskinslíkani Blinn-Phong og
+            noti Phong litun. Þið getið líka nýtt ykkur sýnisforritið PhongCube. Skilið skjámynd og
+            hlekk á forritið.
+        </li>
+        <li>
+            Breytið sýnisforritinu TransparentTepottur á tvo vegu:
+            <ul>
+                <li>
+                    a. Þegar notandinn ýtir á niður-örina þá minnkar talan sem stýrir því hvort búti sé
+                    hent (discard). Þetta þýðir að fleiri bútum verður hent og stærra yfirborð tepottsins
+                    verða gegnsætt. Þegar ýtt er á upp-örina þá hækkar talan. Athugið að talan getur
+                    aðeins tekið gildi á bilinu 0.0 til 4.0.
+                </li>
+                <li>
+                    b. Látið vinstri og hægri örvalykla stjórna dreiflit tepottsins. Til þess er best að nota
+                    HSV líkanið, þar sem H (hue) er litbær og tekur gildið 0 til 360. Ef við setjum bæði S
+                    og V sem 1.0 (hæsta gildið), þá er hægt að nota þetta ótrúlega stutta og illskiljanlega
+                    Javascript fall til að breyta HSV-lit yfir í RGB-lit (kallið á það með „hsv2rgb(h, 1.0, 1.0)“,
+                    þar sem h breytist frá 0 til 360 eftir áslætti á vinstri og hægri örvalykla.
+                </li>
+            </ul>
+        </li>
+        <li>
+            Ytra geymsluform stafrænna mynda er lang oftast á þjöppuðu formi, annað hvort
+            taplaus (lossless) eða tapandi (lossy) þjöppun. Innra formið er hins vegar alltaf á hrátt
+            (raw), án þjöppunar og kóðunar.
+            <ul>
+                <li>
+                    a. Hvers vegna er hagkvæmara að geyma myndir á þjöppuðu formi á ytri
+                    geymslumiðlum frekar en í innra minni?
+                </li>
+                <li>
+                    b. Gætum við geymt myndir í innra minni tölvunnar á þjöppuðu formi? Hvaða kosti og
+                    galla hefði það í för með sér?
+                </li>
+            </ul>
+        </li>
+        <li>
+            <strong>[Próf 2023]</strong> Hér fyrir neðan eru þrjár myndir af spjaldi þar sem búið er að varpa á það
+            mynstrinu af tepottinum hér til hægri. Í hverju tilfelli gefið mynsturhnitin sem þarf að nota og tiltakið
+            þær stillingar á mynsturvörpuninni sem skipta máli til að fá þessa útkomu.
+        </li>
+    </ol>
+    
+    <p>Skilið PDF-skjali með lausnum ykkar á þessum dæmum fyrir kl. 23:59 laugardaginn 26. október í Gradescope. Munið einnig eftir að gefa upp á hvaða blaðsíðum svör við einstökum dæmum eru.</p>
+    
+    <footer>
+        <p>Mynstur:</p>
+        <ul>
+            <li><a href="https://hjalmtyr.github.io/WebGL-forrit/Angel/billy.html">Billy</a></li>
+            <li><a href="https://hjalmtyr.github.io/WebGL-forrit/Angel/PhongCube.html">PhongCube</a></li>
+            <li><a href="https://hjalmtyr.github.io/WebGL-forrit/Angel/TransparentTepottur.html">TransparentTepottur</a></li>
+            <li><a href="https://stackoverflow.com/a/54024653">HSV to RGB Conversion</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

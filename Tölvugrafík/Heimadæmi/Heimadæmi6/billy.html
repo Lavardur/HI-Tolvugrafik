@@ -1,0 +1,50 @@
+
+<!-- saved from url=(0056)https://hjalmtyr.github.io/WebGL-forrit/Angel/billy.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute  vec4 vPosition;
+attribute  vec4 vColor;
+varying vec4 fColor;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+void main() 
+{
+    fColor = vColor;
+    gl_Position = projectionMatrix * modelViewMatrix * vPosition;
+} 
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+   
+varying vec4 fColor;
+
+void main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="./billy_files/webgl-utils.js"></script>
+<script type="text/javascript" src="./billy_files/initShaders.js"></script>
+<script type="text/javascript" src="./billy_files/MV.js"></script>
+<script type="text/javascript" src="./billy_files/billy.js"></script>
+
+</head><body>
+<audio autoplay loop>
+    <source src="./8-bit.wav" type="audio/wav">
+    Your browser does not support the audio element.
+</audio>    
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+   
+<br>
+
+
+
+
+</body></html>
